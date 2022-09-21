@@ -22,16 +22,17 @@ PRIMARY KEY(menu_id));
 CREATE TABLE Orders(
 order_id INT UNIQUE NOT NULL AUTO_INCREMENT,
 id INT NOT NULL,
-meal_id INT NOT NULL, 
 price DECIMAL NOT NULL,
 allergens VARCHAR(100) default(0),
 PRIMARY KEY(order_id),
 FOREIGN KEY (id) REFERENCES customers(cust_id));
 
+ALTER TABLE Orders MODIFY price decimal(4,2) DEFAULT(0);
 
+UPDATE Orders set price =0 WHERE order_id=10;
 
 INSERT INTO Orders (id) VALUES (6), (7), (8), (9), (10);
-
+SELECT * from customers;
 CREATE TABLE order_items(
 oi_id INT UNIQUE NOT NULL AUTO_INCREMENT,
 ord_id INT NOT NULL,
@@ -40,6 +41,10 @@ quantity INT,
 PRIMARY KEY(oi_id),
 FOREIGN KEY (ord_id) REFERENCES orders(order_id),
 FOREIGN KEY (meal_id) REFERENCES menu(menu_id));
+
+INSERT INTO order_items (ord_id, meal_id) VALUES (1,5), (2,6), (3,7), (4,8), (5,5);
+
+SELECT * from menu;
 
 INSERT INTO 
 
