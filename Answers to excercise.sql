@@ -66,6 +66,42 @@ Select HeadofState from country;
 
 #13.	List the top ten countries with the smallest population-to-area ratio. Discard any countries with a ratio of 0. 
 
-SELECT * from country;
-SELECT (population), (SurfaceArea) from country WHERE POPULATION IS NOT NULL AND POPULATION>0 AND SurfaceArea<10000000000;
-SELECT country.name, (population), (SurfaceArea) FROM country WHERE (population>0 AND POPULATION is NOT NULL AND SurfaceArea>0 AND SurfaceArea is NOT NULL AND (SurfaceArea)) Order by POPULATION  DESC LIMIT 10; 
+SELECT `name`, population, surfacearea from country where population>=1 order by population/surfacearea asc limit 10;
+
+#14.	List every unique world language
+SELECT * FROM countrylanguage;
+SELECT DISTINCT LANGUAGE FROM countrylanguage; 
+
+#15.	List the names and GNP of the world's top 10 richest countries.
+SELECT * FROM country;
+
+SELECT NAME, GNP FROM country WHERE GNP>0 ORDER BY GNP DESC LIMIT 10; 
+
+#16.	List the names of, and number of languages spoken by, the top ten most multilingual countries.
+SELECT * from country; 
+Select * from countrylanguage;
+SELECT c.name, count(cl.Language) from country c join countrylanguage cl ON c.code=cl.countrycode GROUP BY c.name order by count(cl.language) DESC LIMIT 10;
+
+#17. LIST EVERY COUNTRY WHERE OVER 50% of its population can speak german
+
+SELECT * FROM countrylanguage;
+SELECT * FROM country;
+
+SELECT c.name, cl.percentage from country c join countrylanguage cl on cl.countrycode=c.code WHERE language="german" and (Percentage>50.00) Order by c.name ASC;
+
+#WHICH COUNTRY HAS THE WORST LIFE EXPECTANCY? Discard zero or null values
+
+SELECT * FROM COUNTRY;
+
+SELECT name, lifeexpectancy from country WHERE lifeexpectancy>=1 ORder by lifeexpectancy ASC limit 1; 
+
+#LIST THE TOP 3 GOVERMENT MOST COMMON GOVERNMENT FORMS 
+
+SELECT governmentform, count(governmentform) AS governmentform from country GROUP BY governmentform ORDER BY governmentform DESC limit 3; 
+
+#20.	How many countries have gained independence since records began?
+SELECT MIN(indepyear) from country; #-1523
+SELECT * FROM country;
+
+SELECT count(indepyear) AS indepyear from country where indepyear is not null AND indepyear>-1600;
+
